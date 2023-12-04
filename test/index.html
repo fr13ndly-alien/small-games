@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    .circle-container {
+      text-align: center;
+      position: relative;
+    }
+
+    .circle {
+      width: 50px;
+      height: 50px;
+      background-color: #3498db;
+      border-radius: 50%;
+      animation: pulse 2s infinite alternate;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 16px;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.2);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="circle-container">
+    <div class="circle"></div>
+    <div class="text" id="progress">0%</div>
+  </div>
+
+  <script>
+    // Update the progress text and circle size dynamically
+    let progress = 0;
+    const progressText = document.getElementById('progress');
+    const circle = document.querySelector('.circle');
+
+    function updateProgress() {
+      progress += 1;
+      if (progress > 100) {
+        progress = 0;
+      }
+
+      progressText.textContent = `${progress}%`;
+      const scaleValue = 1 + progress / 100 * 0.5; // Adjust the multiplier for the desired circle size change
+      circle.style.transform = `scale(${scaleValue})`;
+
+      // Update progress every 50 milliseconds
+      setTimeout(updateProgress, 50);
+    }
+
+    // Start the progress update loop
+    updateProgress();
+  </script>
+
+</body>
+</html>

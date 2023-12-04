@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const heartBar = document.getElementById('heart');
-    const statusElement = document.getElementById('status');
-    const lowerSpeed = 2;
+    const progressElement = document.getElementById('progress');
+    const lowerSpeed = 1;
+    const DEFAULT_TIME_INTERVAL = 500; // 0.5s
+    const INIT_HEART_SIZE = 5;
+    const INIT_TEXT_SIZE = 2;
 
     let isHoldingSpace = false;
     let isOver = false;
@@ -10,38 +12,37 @@ document.addEventListener('DOMContentLoaded', () => {
     let interval;
 
     function setRaiseSpeed() {
-        if (currentPercentage > 10) {
-            raiseSpeed = 3;
-        }
-        if (currentPercentage > 40) {
-            raiseSpeed = 2;
-        }
-        if (currentPercentage > 70) {
-            raiseSpeed = 1;
-        }
-        if (currentPercentage < 80) {
-            raiseSpeed = 0.7;
-        }
-        if (currentPercentage > 85) {
-            raiseSpeed = 0.6;
-        }
-        if (currentPercentage > 90) {
-            raiseSpeed = 0.5;
-        }
-        
+        raiseSpeed = 1;
+        // if (currentPercentage > 10) {
+        //     raiseSpeed = 3;
+        // }
+        // if (currentPercentage > 40) {
+        //     raiseSpeed = 2;
+        // }
+        // if (currentPercentage > 70) {
+        //     raiseSpeed = 1;
+        // }
+        // if (currentPercentage < 80) {
+        //     raiseSpeed = 0.7;
+        // }
+        // if (currentPercentage > 85) {
+        //     raiseSpeed = 0.6;
+        // }
+        // if (currentPercentage > 90) {
+        //     raiseSpeed = 0.5;
+        // }
     }
 
     function startGame() {
         document.addEventListener('keydown', handleKeyPress);
         document.addEventListener('keyup', handleKeyRelease);
-        displayGameStart();
     }
 
     function handleKeyPress(event) {
         if (event.key === ' ' && !isOver && !isHoldingSpace) {
             isHoldingSpace = true;
             clearInterval(interval);
-            interval = setInterval(raiseHeart, 100);
+            interval = setInterval(raiseHeart, DEFAULT_TIME_INTERVAL);
         }
     }
 
@@ -49,21 +50,19 @@ document.addEventListener('DOMContentLoaded', () => {
         isHoldingSpace = false;
         if (event.key === ' ' && !isOver) {
             clearInterval(interval);
-            interval = setInterval(lowerHeart, 500);
+            interval = setInterval(lowerHeart, DEFAULT_TIME_INTERVAL);
         }
     }
 
-
     function raiseHeart() {
+        console.log('>> raising heart');
         setRaiseSpeed();
         if (currentPercentage < 100) {
             currentPercentage = Math.round(currentPercentage + raiseSpeed);
-            displayRaising();
             updateHeart();
         } else {
             isOver = true;
             clearInterval(interval);
-            displayWin();
         }
     }
 
@@ -71,41 +70,32 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('>> lower heart');
         if (currentPercentage > 0) {
             currentPercentage -= lowerSpeed;
-            displayLosing();
             updateHeart();
         } else {
             clearInterval(interval);
             isOver = true;
-            displayLoss();
         }
     }
 
     function updateHeart() {
-        const percentage = Math.round(currentPercentage) + 'vw';
-        console.log('>> new percentage: ', percentage);
-        // heartBar.style.width = Math.round(currentPercentage) + 'vw';
-        let root = document.documentElement;
-        root.style.setProperty('--heart-size', percentage);
+        const percentage = Math.round(currentPercentage) + 'vh';
+        updateProgress();
+        if (currentPercentage > INIT_HEART_SIZE) {
+            console.log('>> rairsing heart: ', percentage);
+            const root = document.documentElement;
+            root.style.setProperty('--heart-size', percentage);
+        }
     }
 
-    function displayWin() {
-        statusElement.textContent = 'Congratulations! You win!';
-    }
-
-    function displayLoss() {
-        statusElement.textContent = 'Game over. You lost.';
-    }
-
-    function displayGameStart() {
-        statusElement.textContent = "Hit space to start.";
-    }
-
-    function displayRaising() {
-        statusElement.textContent = `Raising: ${currentPercentage}%`;
-    }
-    
-    function displayLosing() {
-        statusElement.textContent = `Losing: ${currentPercentage}%`;
+    function updateProgress() {
+        const roundedPercent = Math.round(currentPercentage);
+        const sizeInVh = roundedPercent/10;
+        progressElement.textContent= `${roundedPercent} %`;
+        if (sizeInVh > INIT_TEXT_SIZE) {
+            progressElement.style.setProperty('font-size', `${sizeInVh}vh`);
+        } else {
+            progressElement.style.setProperty('font-size', `2vh`)
+        }
     }
 
     startGame();

@@ -1,5 +1,5 @@
 :root {
-    --heart-size: 3vw; /* Initial size using CSS variable */
+    --heart-size: 5vh; /* Initial size using CSS variable */
 }
 
 body {
@@ -9,17 +9,7 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #362f2f;
-}
-
-#game-container {
-    text-align: center;
-}
-
-#heart-bar {
-    display: inline-block;
-    height: 50px;
-    background-color: aquamarine;
-    background-size: cover;
+    overflow: hidden;
 }
 
 #status {
@@ -31,45 +21,27 @@ body {
     height: var(--heart-size);
     width: var(--heart-size);
     background-image: url(./heart/PixelArt-Heart-1.svg);
-    /* background-color: red; */
-    /* transform: rotate(-45deg); */
     position: relative;
     animation: heartbeat 1s infinite;
+    display: flex;
 }
 
 .heart::before, 
 .heart::after {
-    /* content: ""; */
     height: var(--heart-size);
     width: var(--heart-size);
-    background-color: red;
+    background-image: url(./heart/PixelArt-Heart-1.svg);
     border-radius: 50%;
-    position: absolute;
-}
-
-.heart::before {
-    top: -50px;
-    left: 0px;
-}
-
-.heart::after {
-    left: 50px;
-    top: 0px;
+    position: relative;
 }
 
 @keyframes heartbeat {
-    0% {
-        transform: scale(1)
-            /* rotate(-45deg); */
-    }
+    0% { transform: scale(1) }
+    25% { transform: scale(1.25) }
+    45% { transform: scale(1.5) }
+}
 
-    25% {
-        transform: scale(1.25)
-            /* rotate(-45deg); */
-    }
-
-    45% {
-        transform: scale(1.5)
-            /* rotate(-45deg); */
-    }
+#progress {
+    text-align: center;
+    margin: auto;
 }

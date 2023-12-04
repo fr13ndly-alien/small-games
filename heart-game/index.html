@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @font-face { font-family: Minecraft; src: url('./fonts/Minecraft.ttf'); } 
+        body {
+           font-family: Minecraft
+        }
+    </style>
     <link rel="stylesheet" href="style.css">
     <title>Heart Bar Game</title>
 </head>
 <body>
-    <div id="game-container">
-        <!-- <div id="heart-bar"></div> -->
-        <div class="heart"></div>
-        <p id="status" style="visibility: hidden;"></p>
+    <!-- <div id="heart-bar"></div> -->
+    <div class="heart">
+        <span id="progress">0%</span>
     </div>
     <script src="script.js"></script>
 </body>
