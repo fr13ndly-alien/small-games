@@ -1,10 +1,14 @@
+:root {
+    --heart-size: 3vw; /* Initial size using CSS variable */
+}
+
 body {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: #362f2f;
 }
 
 #game-container {
@@ -22,29 +26,22 @@ body {
     margin-top: 20px;
     font-size: 18px;
 }
- 
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
 
 .heart {
-    height: 100px;
-    width: 100px;
-    background-color: red;
-    transform: rotate(-45deg);
+    height: var(--heart-size);
+    width: var(--heart-size);
+    background-image: url(./heart/PixelArt-Heart-1.svg);
+    /* background-color: red; */
+    /* transform: rotate(-45deg); */
     position: relative;
     animation: heartbeat 1s infinite;
 }
 
 .heart::before, 
 .heart::after {
-    content: "";
-    height: 100px;
-    width: 100px;
+    /* content: ""; */
+    height: var(--heart-size);
+    width: var(--heart-size);
     background-color: red;
     border-radius: 50%;
     position: absolute;
@@ -63,16 +60,16 @@ body {
 @keyframes heartbeat {
     0% {
         transform: scale(1)
-            rotate(-45deg);
+            /* rotate(-45deg); */
     }
 
     25% {
         transform: scale(1.25)
-            rotate(-45deg);
+            /* rotate(-45deg); */
     }
 
     45% {
         transform: scale(1.5)
-            rotate(-45deg);
+            /* rotate(-45deg); */
     }
 }

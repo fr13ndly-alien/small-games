@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const heartBar = document.getElementById('heart-bar');
+    const heartBar = document.getElementById('heart');
     const statusElement = document.getElementById('status');
     const lowerSpeed = 2;
 
@@ -81,7 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateHeart() {
-        heartBar.style.width = Math.round(currentPercentage) + '%';
+        const percentage = Math.round(currentPercentage) + 'vw';
+        console.log('>> new percentage: ', percentage);
+        // heartBar.style.width = Math.round(currentPercentage) + 'vw';
+        let root = document.documentElement;
+        root.style.setProperty('--heart-size', percentage);
     }
 
     function displayWin() {
