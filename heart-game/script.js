@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const progressElement = document.getElementById('progress');
-    const lowerSpeed = 1;
+    const bodyElement = document.getElementsByTagName('body');
+
+    const LOWER_SPEED = 1;
     const DEFAULT_TIME_INTERVAL = 500; // 0.5s
     const INIT_HEART_SIZE = 5;
     const INIT_TEXT_SIZE = 2;
@@ -12,7 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let interval;
 
     function setRaiseSpeed() {
-        raiseSpeed = 1;
+        raiseSpeed = 3;
+        if (currentPercentage > 20 && currentPercentage < 60) {
+            raiseSpeed = 2
+        }
+
+        if (currentPercentage > 60) {
+            raiseSpeed = 1;
+        }
         // if (currentPercentage > 10) {
         //     raiseSpeed = 3;
         // }
@@ -69,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function lowerHeart() {
         console.log('>> lower heart');
         if (currentPercentage > 0) {
-            currentPercentage -= lowerSpeed;
+            currentPercentage -= LOWER_SPEED;
             updateHeart();
         } else {
             clearInterval(interval);
