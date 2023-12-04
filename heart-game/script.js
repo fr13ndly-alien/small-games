@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let raiseSpeed = 5;
     let currentPercentage = 0;
     let interval;
+    let interval2;
 
     function setRaiseSpeed() {
         raiseSpeed = 3;
@@ -48,10 +49,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleKeyPress(event) {
-        if (event.key === ' ' && !isOver && !isHoldingSpace) {
-            isHoldingSpace = true;
-            clearInterval(interval);
-            interval = setInterval(raiseHeart, DEFAULT_TIME_INTERVAL);
+        if (event.key === ' ' && !isHoldingSpace) {
+                
+            if (!isOver) {
+                isHoldingSpace = true;
+                clearInterval(interval);
+                interval = setInterval(raiseHeart, DEFAULT_TIME_INTERVAL);
+            } else {
+                clearInterval(interval)
+                interval = setInterval(doWin, 200);
+            }
         }
     }
 
@@ -64,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function raiseHeart() {
-        console.log('>> raising heart');
         setRaiseSpeed();
         if (currentPercentage < 100) {
             currentPercentage = Math.round(currentPercentage + raiseSpeed);
@@ -73,6 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
             isOver = true;
             clearInterval(interval);
         }
+    }
+
+    function doWin() {
+        // expand the heart and do exploit
+        console.log('>> do win..');
     }
 
     function lowerHeart() {
@@ -93,6 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('>> rairsing heart: ', percentage);
             const root = document.documentElement;
             root.style.setProperty('--heart-size', percentage);
+
+            const roundedPercent = Math.round(currentPercentage);
+            root.style.setProperty('--heart-height', roundedPercent + 'vh');
+            root.style.setProperty('--heart-width', (roundedPercent * 1.3) + 'vh');
         }
     }
 
