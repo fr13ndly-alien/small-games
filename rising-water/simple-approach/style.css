@@ -1,0 +1,34 @@
+@import url(//fonts.googleapis.com/css?family=Lato:300:400);
+
+:root {
+    --loaded-height: 0vh;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #fee440;
+    overflow: hidden;
+}
+
+.progress {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    height: var(--loaded-height);
+    background-color: rgb(24, 90, 148);
+
+    box-shadow: 0 10px 40px -10px #fff;
+}
+
+svg {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+}

@@ -1,4 +1,8 @@
 @import url(//fonts.googleapis.com/css?family=Lato:300:400);
+:root {
+    --wave-height: 10vh;
+    --wave-bottom-height: 0vh;
+}
 
 body {
     display: flex;
@@ -16,7 +20,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 110vh;
     width: 100vw;
     margin: 0;
     background-color: #362f2f;
@@ -28,23 +32,24 @@ body {
     color: white;
 }
 
-.inner-header {
-    height: 65vh;
-    width: 100%;
-    margin: 0;
-    padding: 0;
+.wave-container {
+    align-items: center;
+    height: var(--wave-height);
+    width: inherit;
+    position: absolute;
+    bottom: 0;
 }
 
-.wave-container {
+.wave-top {
     width: inherit;
-    height: 50vh;
+    height: var(--wave-height);
     position: absolute;
     bottom: 0;
 }
 
 .wave-bottom {
     width: inherit;
-    height: 35vh;
+    height: var(--wave-bottom-height);
     position: absolute;
     bottom: 0;
     background: white;
@@ -60,34 +65,31 @@ body {
     max-height: 150px;
 }
 
-
-
-
 /* Animation */
 
 .parallax>use {
-    animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+    animation: move-forever 6s cubic-bezier(.55, .5, .45, .5) infinite;
 }
-
+/* 
 .parallax>use:nth-child(1) {
     animation-delay: -2s;
-    animation-duration: 7s;
+    animation-duration: 6s;
 }
 
 .parallax>use:nth-child(2) {
     animation-delay: -3s;
-    animation-duration: 10s;
+    animation-duration: 8s;
 }
 
 .parallax>use:nth-child(3) {
     animation-delay: -4s;
-    animation-duration: 13s;
+    animation-duration: 10s;
 }
 
 .parallax>use:nth-child(4) {
     animation-delay: -5s;
-    animation-duration: 20s;
-}
+    animation-duration: 16s;
+} */
 
 @keyframes move-forever {
     0% {
@@ -112,5 +114,13 @@ body {
 
     h1 {
         font-size: 24px;
+    }
+
+    .wave-bottom {
+        width: inherit;
+        height: 92%;
+        position: absolute;
+        bottom: 0;
+        background: white;
     }
 }
