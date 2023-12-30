@@ -116,7 +116,7 @@ window.requestAnimFrame = (function () {
 
 
 // Our Frame function
-var frame = function () {
+function frame () {
     // Draw background first
     drawBg(ctx, colorPalette.bg);
     // Update Particle models to new position
