@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const INIT_HEART_SIZE = 5;
     const INIT_TEXT_SIZE = 2;
 
+    let isCompletetd = false;
     let isHoldingSpace = false;
     let isOver = false;
     let raiseSpeed = 5;
@@ -15,32 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let interval2;
 
     function setRaiseSpeed() {
-        raiseSpeed = 3;
+
         if (currentPercentage > 20 && currentPercentage < 60) {
             raiseSpeed = 2
         }
 
-        if (currentPercentage > 60) {
+        if (currentPercentage > 80) {
             raiseSpeed = 1;
         }
-        // if (currentPercentage > 10) {
-        //     raiseSpeed = 3;
-        // }
-        // if (currentPercentage > 40) {
-        //     raiseSpeed = 2;
-        // }
-        // if (currentPercentage > 70) {
-        //     raiseSpeed = 1;
-        // }
-        // if (currentPercentage < 80) {
-        //     raiseSpeed = 0.7;
-        // }
-        // if (currentPercentage > 85) {
-        //     raiseSpeed = 0.6;
-        // }
-        // if (currentPercentage > 90) {
-        //     raiseSpeed = 0.5;
-        // }
+
+        // to test the complete action
+        raiseSpeed = 25;
     }
 
     function startGame() {
@@ -50,14 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleKeyPress(event) {
         if (event.key === ' ' && !isHoldingSpace) {
-                
             if (!isOver) {
                 isHoldingSpace = true;
                 clearInterval(interval);
                 interval = setInterval(raiseHeart, DEFAULT_TIME_INTERVAL);
-            } else {
-                clearInterval(interval)
-                interval = setInterval(doWin, 200);
             }
         }
     }
@@ -78,12 +60,15 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             isOver = true;
             clearInterval(interval);
+            doWin();
         }
     }
 
     function doWin() {
         // expand the heart and do exploit
-        console.log('>> do win..');
+        if (!isCompletetd) {
+            isCompletetd = true;
+        }
     }
 
     function lowerHeart() {
@@ -101,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const percentage = Math.round(currentPercentage) + 'vh';
         updateProgress();
         if (currentPercentage > INIT_HEART_SIZE) {
-            console.log('>> rairsing heart: ', percentage);
+            console.log('>> raising heart: ', percentage);
             const root = document.documentElement;
             root.style.setProperty('--heart-size', percentage);
 
@@ -118,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sizeInVh > INIT_TEXT_SIZE) {
             progressElement.style.setProperty('font-size', `${sizeInVh}vh`);
         } else {
-            progressElement.style.setProperty('font-size', `2vh`)
+            progressElement.style.setProperty('font-size', `2vh`);
         }
     }
 
