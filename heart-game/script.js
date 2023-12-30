@@ -141,14 +141,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Some Variables hanging out
     var particles = [],
         centerX = canvas.width / 2,
-        centerY = canvas.height / 2,
-        drawBg,
+        centerY = canvas.height / 2;
 
-        // Draws the background for the canvas, because space
-        drawBg = function (ctx, color) {
-            ctx.fillStyle = "rgb(" + color.r + "," + color.g + "," + color.b + ")";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-        };
+    // Draws the background for the canvas, because space
+    function drawBg (ctx, color) {
+        ctx.fillStyle = "rgb(" + color.r + "," + color.g + "," + color.b + ")";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    };
 
     // Particle Constructor
     var Particle = function (x, y) {
@@ -246,10 +245,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Click listener
     document.body.addEventListener("click", function (event) {
-        var x = event.clientX,
+        if (isOver) {
+            var x = event.clientX,
             y = event.clientY;
-        cleanUpArray();
-        initParticles(config.particleNumber, x, y);
+            cleanUpArray();
+            initParticles(config.particleNumber, x, y);
+        }
     });
 
     startGame();
