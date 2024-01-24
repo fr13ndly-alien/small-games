@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // to test the complete action
-        raiseSpeed = 25;
+        // raiseSpeed = 25;
     }
 
     function startGame() {
@@ -129,12 +129,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Colors
     var colorPalette = {
-        bg: { r: 12, g: 9, b: 29 },
+        bg: { r: 239, g: 179, b: 59 },
         matter: [
-            { r: 36, g: 18, b: 42 }, // darkPRPL
-            { r: 78, g: 36, b: 42 }, // rockDust
-            { r: 252, g: 178, b: 96 }, // solorFlare
-            { r: 253, g: 238, b: 152 } // totesASun
+            { r: 36, g: 18, b: 42 },
+            { r: 221, g: 35, b: 99 },
+            { r: 5, g: 138, b: 113 },
+            { r: 200, g: 18, b: 18 }
         ]
     };
 
