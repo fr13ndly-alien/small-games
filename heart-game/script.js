@@ -17,11 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function setRaiseSpeed() {
 
         if (currentPercentage > 20 && currentPercentage < 60) {
-            raiseSpeed = 2
+            raiseSpeed = 3
         }
 
         if (currentPercentage > 80) {
-            raiseSpeed = 1;
+            raiseSpeed = 2;
         }
 
         // to test the complete action
