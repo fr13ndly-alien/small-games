@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const heartElem = document.getElementById('heart');
     const progressElement = document.getElementById('progress');
     const bodyElement = document.getElementsByTagName('body');
 
@@ -7,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const INIT_HEART_SIZE = 5;
     const INIT_TEXT_SIZE = 2;
 
+    let isStarted = false;
     let isCompletetd = false;
     let isHoldingSpace = false;
     let isOver = false;
@@ -29,11 +31,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startGame() {
+        heartElem.style.display = 'none';
         document.addEventListener('keydown', handleKeyPress);
         document.addEventListener('keyup', handleKeyRelease);
     }
 
     function handleKeyPress(event) {
+        if (!isOver) {
+            heartElem.style.removeProperty('display');
+        }
+
         if (event.key === ' ' && !isHoldingSpace) {
             if (!isOver) {
                 isHoldingSpace = true;
@@ -67,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // expand the heart and do exploit
         if (!isCompletetd) {
             isCompletetd = true;
-            document.getElementById('heart').style.display = 'none';
+            heartElem.style.display = 'none';
 
             // init frame and first exploding
             startExploding();
@@ -101,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateProgress() {
-        const roundedPercent = Math.round(currentPercentage);
+        const roundedPercent = currentPercentage >= 100 ? 100 : Math.round(currentPercentage);
         const sizeInVh = roundedPercent / 10;
         progressElement.textContent = `${roundedPercent} %`;
         if (sizeInVh > INIT_TEXT_SIZE) {
