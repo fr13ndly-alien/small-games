@@ -88,6 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // init frame and first exploding
             startExploding();
             initParticles(config.particleNumber);
+
+            setInterval(randomExploding, 2000);
         }
     }
 
@@ -280,6 +282,13 @@ document.addEventListener('DOMContentLoaded', () => {
             initParticles(config.particleNumber, x, y);
         }
     });
+
+    function randomExploding() {
+        // cleanUpArray();
+        const randomX = Math.floor(Math.random() * 10);
+        const randomY = Math.floor(Math.random() * 10);
+        initParticles(config.particleNumber, window.innerWidth / randomX, window.innerHeight / randomY);
+    }
 
     startGame();
 });
