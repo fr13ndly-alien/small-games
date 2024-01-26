@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressElement = document.getElementById('progress');
     const bodyElement = document.getElementsByTagName('body');
 
-    const LOWER_SPEED = 1;
+    const LOWER_SPEED = 3;
     const DEFAULT_TIME_INTERVAL = 500; // 0.5s
     const INIT_HEART_SIZE = 5;
     const INIT_TEXT_SIZE = 2;
@@ -104,7 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const percentage = Math.round(currentPercentage) + 'vh';
         updateProgress();
         if (currentPercentage > INIT_HEART_SIZE) {
-            console.log('>> raising heart: ', percentage);
             const root = document.documentElement;
             root.style.setProperty('--heart-size', percentage);
 
@@ -115,7 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateProgress() {
-        const roundedPercent = currentPercentage >= 100 ? 100 : Math.round(currentPercentage);
+        const roundedPercent = currentPercentage >= 100 
+            ? 100 
+            : (currentPercentage <= 0) ? 0 : Math.round(currentPercentage);
         const sizeInVh = roundedPercent / 10;
         progressElement.textContent = `${roundedPercent} %`;
         if (sizeInVh > INIT_TEXT_SIZE) {
