@@ -1,13 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     const heartElem = document.getElementById('heart');
     const progressElement = document.getElementById('progress');
-    const bodyElement = document.getElementsByTagName('body');
+    const heartbeatSoundElem = document.getElementById('heartbeat-sound');
 
     const LOWER_SPEED = 3;
     const DEFAULT_TIME_INTERVAL = 500; // 0.5s
     const INIT_HEART_SIZE = 5;
     const INIT_TEXT_SIZE = 2;
 
+    let beatCount = 0;
     let isStarted = false;
     let isCompletetd = false;
     let isHoldingSpace = false;
@@ -82,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isCompletetd) {
             isCompletetd = true;
             heartElem.style.display = 'none';
+            heartbeatSoundElem.pause();
 
             // init frame and first exploding
             startExploding();
@@ -100,7 +102,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function playHeartbeat() {
+        beatCount++;
+        if (beatCount % 2 === 0) {
+            heartbeatSoundElem.pause();
+            heartbeatSoundElem.currentTime = 0;
+            heartbeatSoundElem.play();
+        }
+    }
+
     function updateHeart() {
+        playHeartbeat();
+
         const percentage = Math.round(currentPercentage) + 'vh';
         updateProgress();
         if (currentPercentage > INIT_HEART_SIZE) {
