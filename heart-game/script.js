@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const INIT_TEXT_SIZE = 2;
 
     let beatCount = 0;
-    let isStarted = false;
     let isCompletetd = false;
     let isHoldingSpace = false;
     let isOver = false;
@@ -38,31 +37,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleKeyPress(event) {
-        if (isStarted) {
-            if (!isOver ) {
-                progressElement.style.removeProperty('display');
+        if (event.key === ' ' && !isHoldingSpace) {
+            progressElement.style.removeProperty('display');
+            if (!isOver) {
+                isHoldingSpace = true;
+                clearInterval(interval);
+                interval = setInterval(raiseHeart, DEFAULT_TIME_INTERVAL);
             }
-
-            if (event.key === ' ' && !isHoldingSpace) {
-                if (!isOver) {
-                    isHoldingSpace = true;
-                    clearInterval(interval);
-                    interval = setInterval(raiseHeart, DEFAULT_TIME_INTERVAL);
-                }
-            }
-        }      
+        }     
     }
 
     function handleKeyRelease(event) {
-        if (isStarted) {
-            isHoldingSpace = false;
-            if (event.key === ' ' && !isOver) {
-                clearInterval(interval);
-                interval = setInterval(lowerHeart, DEFAULT_TIME_INTERVAL);
-            }
-        } else if (event.key === ' ') {
-            console.log('>> game started!')
-            isStarted = true;
+        isHoldingSpace = false;
+        if (event.key === ' ' && !isOver) {
+            clearInterval(interval);
+            interval = setInterval(lowerHeart, DEFAULT_TIME_INTERVAL);
         }
     }
 
