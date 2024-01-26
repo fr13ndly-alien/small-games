@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             startExploding();
             initParticles(config.particleNumber);
 
-            setInterval(randomExploding, 2000);
+            setInterval(autoExplode, 2000);
         }
     }
 
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function randomExploding() {
+    function autoExplode() {
         // cleanUpArray();
         const randomX = Math.floor(Math.random() * 10);
         const randomY = Math.floor(Math.random() * 10);
